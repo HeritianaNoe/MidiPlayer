@@ -1,0 +1,43 @@
+name: Build Plain Java to JAR
+
+on:
+  push:
+    branches: [ "main" ] # Soloy master raha "master" ny anaran'ny branch-nao
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Maka ny kaody ao amin'ny GitHub repository
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # 2. Mampiditra ny Java Development Kit (JDK)
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    # 3. Manao compile ny fichier .java rehetra sy mamorona ny .jar
+    - name: Compile Java & Create JAR
+      run: |
+        # Mamorona dossier hitahirizana ny .class
+        mkdir -p bin
+
+        # Compile ny fichier .java rehetra ao amin'ny dossier src (sy ny zana-dossier)
+        javac -d bin $(find src -name "*.java")
+
+        # Mamorona ny JAR (fampidirana ny Main-Class raha misy function main)
+        # Ohatra: raha ao amin'ny src/Main.java ny main class-nao, dia "Main" ny anarany:
+        jar cfe my-app.jar Main -C bin .
+
+    # 4. Mampidina (upload) ny JAR ho hita ao amin'ny GitHub Actions
+    - name: Upload JAR Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-java-application
+        path: my-app.jar
