@@ -29,7 +29,7 @@ jobs:
         mkdir -p bin
 
         # Compile ny fichier .java rehetra ao amin'ny dossier src (sy ny zana-dossier)
-        javac -d bin $(find src -name "*.java")
+        javac -d bin $(find com -name "*.java")
 
         # Mamorona ny JAR (fampidirana ny Main-Class raha misy function main)
         # Ohatra: raha ao amin'ny src/Main.java ny main class-nao, dia "Main" ny anarany:
