@@ -33,7 +33,7 @@ jobs:
 
         # Mamorona ny JAR (fampidirana ny Main-Class raha misy function main)
         # Ohatra: raha ao amin'ny src/Main.java ny main class-nao, dia "Main" ny anarany:
-        jar cfe my-app.jar Main -C bin .
+        jar cfe my-app.jar com.midi.gs.lakabe.Main -C bin .
 
     # 4. Mampidina (upload) ny JAR ho hita ao amin'ny GitHub Actions
     - name: Upload JAR Artifact
